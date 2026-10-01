@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pan del Día | Inventario de panadería</title>
+  <link rel="stylesheet" href="src/css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-content">
+      <div>
+        <p class="eyebrow">PANADERÍA ARTESANAL</p>
+        <h1>Pan del Día</h1>
+        <p>Gestión del catálogo e inventario de productos horneados.</p>
+      </div>
+      <span class="api-status">API REST</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="stats" aria-label="Resumen del inventario">
+      <div class="stat-card"><span class="stat-label">Productos</span><strong id="totalProductos" class="stat-value">0</strong></div>
+      <div class="stat-card"><span class="stat-label">Productos disponibles</span><strong id="productosDisponibles" class="stat-value">0</strong></div>
+      <div class="stat-card"><span class="stat-label">Precio promedio</span><strong id="precioPromedio" class="stat-value">S/ 0.00</strong></div>
+    </section>
+
+    <section class="card">
+      <div class="section-header">
+        <div>
+          <h2 id="formTitle">Nuevo producto de panadería</h2>
+          <p>Registra los productos frescos disponibles para la venta.</p>
+        </div>
+        <button id="btnCancelar" class="btn btn-secondary hidden" type="button">Cancelar edición</button>
+      </div>
+
+      <form id="formProducto">
+        <input type="hidden" id="productoId">
+        <div class="form-grid">
+          <div class="form-group form-group-large"><label for="nombre">Nombre</label><input type="text" id="nombre" placeholder="Ej. Pan artesanal de masa madre" required></div>
+          <div class="form-group"><label for="categoria">Categoría</label><select id="categoria" required><option value="">Seleccionar</option><option value="Panes">Panes</option><option value="Pastelería">Pastelería</option><option value="Bollería">Bollería</option><option value="Tortas y postres">Tortas y postres</option><option value="Salados">Salados</option><option value="Galletas">Galletas</option><option value="Bebidas">Bebidas</option></select></div>
+          <div class="form-group"><label for="peso">Peso aproximado (g)</label><input type="number" id="peso" min="0" step="1" placeholder="Ej. 80" required></div>
+          <div class="form-group"><label for="precio">Precio (S/)</label><input type="number" id="precio" min="0" step="0.01" placeholder="0.00" required></div>
+          <div class="form-group"><label for="disponible">Disponibilidad</label><label class="checkbox-field"><input type="checkbox" id="disponible"> Disponible para la venta</label></div>
+          <div class="form-group form-group-large"><label for="imagen">URL de imagen</label><input type="url" id="imagen" placeholder="https://..." required></div>
+        </div>
+        <div class="form-actions"><button type="submit" id="btnGuardar" class="btn btn-primary">Guardar producto</button></div>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="section-header">
+        <div><h2>Catálogo de panadería</h2><p>Consulta y administra los productos registrados.</p></div>
+        <div class="search-container"><label class="sr-only" for="buscar">Buscar productos</label><input type="search" id="buscar" placeholder="Buscar por nombre o categoría"></div>
+      </div>
+      <div id="loader" class="loader-container"><div class="loader"></div><p>Cargando catálogo...</p></div>
+      <div id="errorContainer" class="error-container hidden"><strong>Ocurrió un problema</strong><p id="errorMessage"></p><button id="btnReintentar" class="btn btn-primary">Reintentar</button></div>
+      <div id="tablaContainer" class="table-container hidden">
+        <table>
+          <thead><tr><th>ID</th><th>Producto</th><th>Categoría</th><th>Peso</th><th>Precio</th><th>Disponibilidad</th><th>Acciones</th></tr></thead>
+          <tbody id="tablaProductos"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="detalleTitulo"><div class="modal-content"><button id="btnCerrarModal" class="modal-close" aria-label="Cerrar detalle">×</button><div id="modalBody"></div></div></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
